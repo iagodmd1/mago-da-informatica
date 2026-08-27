@@ -1,0 +1,68 @@
+# Mago da Informática — site estático servido pelo Caddy no Railway.
+# Somente GET/HEAD, sem backend, sem banco, sem formulário: a superfície
+# de ataque é o próprio arquivo estático. Os cabeçalhos abaixo fecham o
+# resto.
+{
+	admin off
+	persist_config off
+	auto_https off
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
+:{$PORT:8080} {
+	root * /srv
+	encode gzip zstd
+
+	# --- Cabeçalhos de segurança ---
+	header {
+		# Nada carrega por padrão. Sem script algum: XSS não executa.
+		Content-Security-Policy "default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
+
+		# Impede que o site seja embutido em iframe (clickjacking).
+		X-Frame-Options "DENY"
+
+		# Impede o navegador de "adivinhar" o tipo do arquivo (MIME sniffing).
+		X-Content-Type-Options "nosniff"
+
+		# Força HTTPS por 2 anos, incluindo subdomínios.
+		Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+		# Não vaza a URL completa para outros sites.
+		Referrer-Policy "strict-origin-when-cross-origin"
+
+		# Desliga APIs sensíveis do navegador que o site não usa.
+		Permissions-Policy "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), interest-cohort=()"
+
+		# Isolamento de origem.
+		Cross-Origin-Opener-Policy "same-origin"
+		Cross-Origin-Resource-Policy "same-origin"
+
+		# Não anuncia o servidor.
+		-Server
+		-X-Powered-By
+	}
+
+	# Bloqueia qualquer método que não seja leitura.
+	@nao_leitura not method GET HEAD OPTIONS
+	respond @nao_leitura 405
+
+	# Bloqueia tentativas de acessar arquivos ocultos / de configuração.
+	@ocultos path_regexp ocultos (^|/)\.(git|env|htaccess|ssh|aws)
+	respond @ocultos 404
+
+	# Cache: HTML sempre revalidado, restante imutável.
+	@html path *.html /
+	header @html Cache-Control "public, max-age=0, must-revalidate"
+	@ativos path *.css *.js *.jpg *.png *.svg *.woff2 *.ico
+	header @ativos Cache-Control "public, max-age=31536000, immutable"
+
+	file_server {
+		hide .*
+	}
+
+	handle_errors {
+		respond "Página não encontrada." {http.error.status_code}
+	}
+}
