@@ -1,10 +1,19 @@
-# Site estático servido pelo Caddy. Imagem mínima, sem shell de aplicação,
-# rodando como usuário sem privilégios.
-FROM caddy:2.8-alpine
+# App Node/Express: serve o site e roda o sistema de agendamento com aprovação.
+FROM node:20-alpine
 
-COPY Caddyfile /etc/caddy/Caddyfile
-COPY index.html /srv/index.html
+WORKDIR /app
 
+COPY package.json ./
+RUN npm install --omit=dev
+
+COPY server.js ./
+COPY lib ./lib
+COPY public ./public
+
+# Diretório onde as solicitações ficam gravadas (ver README sobre Volume no Railway).
+RUN mkdir -p /app/data
+
+ENV NODE_ENV=production
 EXPOSE 8080
 
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+CMD ["node", "server.js"]

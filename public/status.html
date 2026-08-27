@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status do agendamento — Mago da Informática</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/agenda.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="/">✦ Mago da Informática</a>
+  <a href="/agendar">Novo agendamento</a>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h1 style="font-size:22px;margin:0 0 6px;">Status do agendamento</h1>
+    <p style="color:var(--text-dim);font-size:14px;margin:0 0 20px;">
+      Digite o código que você recebeu ao enviar a solicitação.
+    </p>
+
+    <form id="form-busca">
+      <label for="codigo">Código de acompanhamento</label>
+      <input id="codigo" name="codigo" type="text" maxlength="6" placeholder="Ex.: 7XKQ2M" style="text-transform:uppercase;">
+      <button type="submit" class="btn secundario">Consultar</button>
+    </form>
+  </div>
+
+  <div class="card" id="card-resultado" style="display:none;"></div>
+</div>
+
+<footer class="rodape">© 2026 Mago da Informática</footer>
+
+<script src="/status.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendar atendimento — Mago da Informática</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/agenda.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="/">✦ Mago da Informática</a>
+  <a href="/status">Já pedi — ver status</a>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h1 style="font-size:22px;margin:0 0 6px;">Agendar atendimento</h1>
+    <p style="color:var(--text-dim);font-size:14px;margin:0 0 20px;">
+      Preencha os dados abaixo. Sua solicitação fica <b>pendente</b> até o Mago
+      confirmar — você recebe a confirmação no seu WhatsApp.
+    </p>
+
+    <ul class="steps">
+      <li>Seg a sex: 08h às 18h · Sáb e dom: 08h ao meio-dia</li>
+      <li>Você escolhe o serviço, dia e horário disponível</li>
+      <li>O Mago aprova e a confirmação chega no seu WhatsApp</li>
+    </ul>
+
+    <div id="msg-erro" class="msg erro" style="display:none;"></div>
+
+    <form id="form-agendar" novalidate>
+      <label for="nome">Seu nome</label>
+      <input id="nome" name="nome" type="text" maxlength="80" autocomplete="name" required>
+
+      <label for="whatsapp">WhatsApp (com DDD)</label>
+      <input id="whatsapp" name="whatsapp" type="tel" maxlength="20" placeholder="(77) 98102-0268" autocomplete="tel" required>
+
+      <label for="servico">Serviço</label>
+      <select id="servico" name="servico" required>
+        <option value="" disabled selected>Escolha um serviço</option>
+        <option>Formatação de PC e notebook</option>
+        <option>Instalação e ativação do Office</option>
+        <option>Troca e upgrade de componentes</option>
+        <option>Ativação do Windows</option>
+        <option>Limpeza de PC ou notebook</option>
+        <option>Orçamento sob medida / sistema personalizado</option>
+        <option>Outro</option>
+      </select>
+
+      <label for="data">Dia</label>
+      <input id="data" name="data" type="date" required>
+
+      <label for="horario">Horário</label>
+      <select id="horario" name="horario" required disabled>
+        <option value="" selected>Escolha o dia primeiro</option>
+      </select>
+      <p class="hint" id="hint-horario"></p>
+
+      <label for="observacoes">Observações (opcional)</label>
+      <textarea id="observacoes" name="observacoes" maxlength="300" placeholder="Descreva rapidamente o problema ou o que precisa, se quiser."></textarea>
+
+      <!-- campo-armadilha anti-spam: invisível para pessoas, bots costumam preencher -->
+      <div style="position:absolute;left:-9999px;" aria-hidden="true">
+        <label for="site_web">Não preencha este campo</label>
+        <input id="site_web" name="site_web" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="btn" id="btn-enviar">Enviar solicitação</button>
+    </form>
+  </div>
+</div>
+
+<footer class="rodape">© 2026 Mago da Informática</footer>
+
+<script src="/agendar.js"></script>
+</body>
+</html>
