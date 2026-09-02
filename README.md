@@ -50,44 +50,22 @@ função.
 | `SESSION_SECRET` | recomendado | Chave para assinar o cookie de sessão. Sem ela, todo login é derrubado a cada reinício do serviço. Gere uma com `openssl rand -hex 32`. |
 | `WHATSAPP_NUMERO` | não (padrão `5577981020268`) | Não é usado para enviar — é só um valor de referência; o link de confirmação vai para o WhatsApp **do cliente**, não do Mago. Pode remover essa variável. |
 | `DATA_DIR` | não (padrão `./data`) | Onde o arquivo de solicitações é gravado — ver aviso do Volume abaixo. |
+| `NOTIFICADOR_URL` | não (sem ela, notificações ficam desligadas) | URL pública do Notificador WhatsApp (ex: `https://xxxx.ngrok-free.app`), **sem** `/api/notificar` no final. |
+| `NOTIFICADOR_TOKEN` | não (sem ela, notificações ficam desligadas) | Token Bearer mostrado no painel do Notificador WhatsApp, em "Integração com o seu site". |
 
-## Persistência dos dados — **importante**
+## Notificação no WhatsApp de novos agendamentos
 
-O sistema de arquivos de um container no Railway é **efêmero**: sem um
-Volume anexado, tudo que for gravado em `data/solicitacoes.json` some a
-cada novo deploy ou reinício do serviço. Para não perder as solicitações:
+Toda vez que um cliente envia uma solicitação em `/agendar` (rota
+`POST /api/solicitacoes`), o servidor chama, em segundo plano, o painel
+**Notificador WhatsApp** para avisar o Mago pelo WhatsApp. Isso é feito por
+`notificarNovoAgendamento()` em `server.js` e não atrasa nem derruba a
+resposta ao cliente caso o notificador esteja fora do ar.
 
-1. No serviço no Railway → **Settings → Volumes → New Volume**.
-2. Monte em, por exemplo, `/data`.
-3. Defina a variável `DATA_DIR=/data`.
+Para ativar:
 
-Sem isso, o sistema funciona normalmente no dia a dia, mas um redeploy
-apaga o histórico de agendamentos.
+1. No painel do Notificador WhatsApp, copie o token em "Integração com o seu site".
+2. O Notificador roda em `localhost`, então ele só é alcançável pelo Railway se você expuser essa porta publicamente — por exemplo com um túnel (`ngrok http 3300`, Cloudflare Tunnel) mantendo o computador e o painel ligados, ou fazendo deploy do próprio Notificador em algum serviço na nuvem.
+3. Configure no Railway as variáveis `NOTIFICADOR_URL` (a URL pública, sem `/api/notificar` no final) e `NOTIFICADOR_TOKEN` (o token copiado).
+4. Se o túnel for reiniciado (o ngrok grátis muda de URL a cada reinício), atualize `NOTIFICADOR_URL` no Railway.
 
-## Como subir no Railway
-
-1. Suba estes arquivos para o repositório `iagodmd1/mago-da-informatica`
-   (substituindo os antigos `index.html` e `Caddyfile`).
-2. No Railway, o serviço já existente vai detectar o novo `Dockerfile` e
-   fazer o build automaticamente a cada push.
-3. Configure as variáveis de ambiente acima (pelo menos `ADMIN_SENHA`).
-4. (Recomendado) Anexe um Volume conforme a seção acima.
-5. Acesse `/admin` com o usuário e senha configurados para aprovar
-   solicitações.
-
-## Segurança
-
-- Cabeçalhos de segurança (CSP, HSTS, X-Frame-Options etc.) continuam
-  ativos, agora configurados no próprio Express em vez do Caddy.
-- O painel `/admin` exige login (usuário/senha via variáveis de
-  ambiente) e usa cookie de sessão `httpOnly`, `secure` em produção.
-- O formulário público (`/api/solicitacoes`) tem limite de tamanho de
-  entrada, um campo-armadilha (honeypot) anti-bot e um limitador de
-  taxa por IP.
-- Toda entrada de usuário é escapada antes de aparecer no painel admin,
-  para evitar XSS armazenado.
-- **Ative 2FA na conta do GitHub e do Railway.** Continua sendo o vetor
-  real de ataque: quem entra na sua conta troca o serviço inteiro.
-- **Não commite segredo nenhum no repositório.** `ADMIN_SENHA` e
-  `SESSION_SECRET` são configurados como variáveis de ambiente no
-  Railway, nunca no código.
+Sem essas duas variáveis configuradas, o site funciona normalmente — só não envia a notificação.
