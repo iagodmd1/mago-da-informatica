@@ -1,0 +1,95 @@
+diff --git a/README.md b/README.md
+index 2c1b463..4835147 100644
+--- a/README.md
++++ b/README.md
+@@ -50,6 +50,33 @@ função.
+ | `SESSION_SECRET` | recomendado | Chave para assinar o cookie de sessão. Sem ela, todo login é derrubado a cada reinício do serviço. Gere uma com `openssl rand -hex 32`. |
+ | `WHATSAPP_NUMERO` | não (padrão `5577981020268`) | Não é usado para enviar — é só um valor de referência; o link de confirmação vai para o WhatsApp **do cliente**, não do Mago. Pode remover essa variável. |
+ | `DATA_DIR` | não (padrão `./data`) | Onde o arquivo de solicitações é gravado — ver aviso do Volume abaixo. |
++| `NOTIFICADOR_URL` | não (sem ela, notificações ficam desligadas) | URL pública do Notificador WhatsApp (ex: `https://xxxx.ngrok-free.app`), **sem** `/api/notificar` no final. |
++| `NOTIFICADOR_TOKEN` | não (sem ela, notificações ficam desligadas) | Token Bearer mostrado no painel do Notificador WhatsApp, em "Integração com o seu site". |
++
++## Notificação no WhatsApp de novos agendamentos
++
++Toda vez que um cliente envia uma solicitação em `/agendar` (rota
++`POST /api/solicitacoes`), o servidor chama, em segundo plano, o painel
++**Notificador WhatsApp** para avisar o Mago pelo WhatsApp. Isso é feito por
++`notificarNovoAgendamento()` em `server.js` e não atrasa nem derruba a
++resposta ao cliente caso o notificador esteja fora do ar.
++
++Para ativar:
++
++1. No painel do Notificador WhatsApp, copie o token em "Integração com o
++   seu site".
++2. O Notificador roda em `localhost`, então ele só é alcançável pelo
++   Railway se você expuser essa porta publicamente — por exemplo com um
++   túnel (`ngrok http 3300`, Cloudflare Tunnel) mantendo o computador e o
++   painel ligados, ou fazendo deploy do próprio Notificador em algum
++   serviço na nuvem.
++3. Configure no Railway as variáveis `NOTIFICADOR_URL` (a URL pública,
++   sem `/api/notificar` no final) e `NOTIFICADOR_TOKEN` (o token copiado).
++4. Se o túnel for reiniciado (o ngrok grátis muda de URL a cada
++   reinício), atualize `NOTIFICADOR_URL` no Railway.
++
++Sem essas duas variáveis configuradas, o site funciona normalmente — só
++não envia a notificação.
+ 
+ ## Persistência dos dados — **importante**
+ 
+diff --git a/server.js b/server.js
+index 00d4b81..25f5cbb 100644
+--- a/server.js
++++ b/server.js
+@@ -21,6 +21,44 @@ const ADMIN_USUARIO = process.env.ADMIN_USUARIO || 'mago';
+ const ADMIN_SENHA = process.env.ADMIN_SENHA || '';
+ const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+ const NUMERO_MAGO = normalizarWhatsapp(process.env.WHATSAPP_NUMERO || '5577981020268');
++const NOTIFICADOR_URL = process.env.NOTIFICADOR_URL || '';
++const NOTIFICADOR_TOKEN = process.env.NOTIFICADOR_TOKEN || '';
++
++if (!NOTIFICADOR_URL || !NOTIFICADOR_TOKEN) {
++  console.warn(
++    '\n[AVISO] NOTIFICADOR_URL / NOTIFICADOR_TOKEN não definidos — notificações do WhatsApp para novos agendamentos ' +
++    'ficarão desativadas. Defina essas variáveis nas configurações do serviço no Railway.\n'
++  );
++}
++
++// Avisa o Notificador WhatsApp sobre um novo agendamento. Não bloqueia nem derruba a
++// requisição do cliente se o notificador estiver fora do ar — é só um "melhor esforço".
++async function notificarNovoAgendamento(s) {
++  if (!NOTIFICADOR_URL || !NOTIFICADOR_TOKEN) return;
++  try {
++    const controle = new AbortController();
++    const timeout = setTimeout(() => controle.abort(), 8000);
++    const resposta = await fetch(`${NOTIFICADOR_URL.replace(/\/+$/, '')}/api/notificar`, {
++      method: 'POST',
++      headers: {
++        Authorization: `Bearer ${NOTIFICADOR_TOKEN}`,
++        'Content-Type': 'application/json',
++      },
++      body: JSON.stringify({
++        mensagem:
++          `Novo agendamento: ${s.nome} - ${s.servico} - ${formatarDataBr(s.data)} às ${s.horario} ` +
++          `(código ${s.codigo})`,
++      }),
++      signal: controle.signal,
++    });
++    clearTimeout(timeout);
++    if (!resposta.ok) {
++      console.error(`[notificador] Falha ao notificar (HTTP ${resposta.status}):`, await resposta.text().catch(() => ''));
++    }
++  } catch (e) {
++    console.error('[notificador] Erro ao notificar novo agendamento:', e.message);
++  }
++}
+ 
+ if (!ADMIN_SENHA) {
+   console.warn(
+@@ -165,6 +203,7 @@ app.post('/api/solicitacoes', limitarTaxa(8, 15 * 60 * 1000), async (req, res) =
+   try {
+     const solicitacao = await store.criar({ nome, whatsapp, servico, data, horario, observacoes });
+     res.status(201).json({ ok: true, codigo: solicitacao.codigo });
++    notificarNovoAgendamento(solicitacao); // melhor esforço, não atrasa a resposta ao cliente
+   } catch (e) {
+     if (e.codigo === 'HORARIO_OCUPADO') {
+       return res.status(409).json({ ok: false, erro: e.message, horarioOcupado: true });
