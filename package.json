@@ -1,7 +1,7 @@
 {
   "name": "mago-da-informatica",
   "version": "1.0.0",
-  "description": "Site do Mago da Informática com sistema de agendamento e aprovação de atendimentos.",
+  "description": "Site do Mago da Informática — institucional, loja de sistemas e contador de visitas.",
   "private": true,
   "main": "server.js",
   "scripts": {
@@ -11,7 +11,6 @@
     "node": ">=18"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "express-session": "^1.18.0"
+    "express": "^4.19.2"
   }
 }
