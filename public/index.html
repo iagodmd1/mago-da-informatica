@@ -135,6 +135,7 @@ section{padding:80px 24px;}
 .shop-details p{margin:10px 0 0;font-size:13px;color:var(--text-dim);}
 .shop-buy{display:block;margin-top:auto;padding-top:12px;text-align:center;font-size:13px;font-weight:700;color:#04160d;background:linear-gradient(135deg,#3ecf8e,#2fae76);padding:10px 14px;border-radius:10px;text-decoration:none;}
 .shop-buy:hover{filter:brightness(1.08);}
+.shop-cover,.svc-cover{width:50px;height:50px;border-radius:12px;flex:none;object-fit:cover;border:1px solid rgba(217,164,65,0.3);}
 @media (max-width:900px){
   .shop-grid{grid-template-columns:1fr;}
   .pickup-banner{flex-direction:column;text-align:center;}
@@ -212,7 +213,7 @@ footer .motto{color:var(--gold-2);font-size:13px;letter-spacing:0.4px;margin-top
         <a href="#loja" class="btn-secondary">Ver loja de sistemas</a>
       </div>
       <div class="hero-stats">
-        <div><b>11</b><span>Sistemas na loja</span></div>
+        <div><b data-contador-sistemas>—</b><span>Sistemas na loja</span></div>
         <div><b>100%</b><span>Satisfação garantida</span></div>
         <div><b>👁️ <span data-contador-visitas>—</span></b><span>Visitas no site</span></div>
       </div>
@@ -246,137 +247,7 @@ footer .motto{color:var(--gold-2);font-size:13px;letter-spacing:0.4px;margin-top
     <h2>Sistemas prontos pra colocar o seu negócio em ordem</h2>
     <p>Cada sistema abaixo eu mesmo desenvolvi e já uso ou já entreguei para clientes. Veja a descrição, e feche o pedido comigo direto no WhatsApp — combinamos os detalhes e o valor por lá.</p>
   </div>
-  <div class="shop-grid">
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">📦</div><h3>Sistema de Estoque</h3></div>
-      <span class="shop-tag">Gestão interna</span>
-      <p class="desc">Controle de inventário com relatórios, auditoria e exportação para Excel.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Cadastro e controle de estoque com histórico de movimentações, exportação para Excel, relatórios e console de auditoria, e controle de acesso por usuário — um admin gerencia as senhas de todos, os demais só a própria. Login protegido com criptografia.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Sistema%20de%20Estoque%20%2F%20Invent%C3%A1rio.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🥖</div><h3>Sistema para Padaria</h3></div>
-      <span class="shop-tag">Comércio local</span>
-      <p class="desc">PDV, estoque, produção e pedidos de clientes, tudo integrado.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Sistema completo para padaria: PDV para vendas no caixa, controle de estoque de insumos, produção (receitas) e pedidos/encomendas de clientes, tudo integrado num só sistema, com login simples e acesso remoto pela internet.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Sistema%20para%20Padaria%20(PDV%2C%20estoque%20e%20produ%C3%A7%C3%A3o).%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🎫</div><h3>Painel de Atendimento e Senhas</h3></div>
-      <span class="shop-tag">Atendimento ao público</span>
-      <p class="desc">Totem de emissão de senhas e painel multi-guichê para organizar filas.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Totem de emissão de senhas, painel de chamada multi-guichê e relatórios de tempo médio de atendimento, com autenticação por perfil — ideal para clínicas, comércios e qualquer negócio com atendimento ao público.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Painel%20de%20Atendimento%20e%20Emiss%C3%A3o%20de%20Senhas.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🧾</div><h3>Gerador de Orçamentos</h3></div>
-      <span class="shop-tag">Uso empresarial / PJ</span>
-      <p class="desc">Preenche seus modelos de orçamento automaticamente, em Word e PDF.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Preenche seus modelos de orçamento (Word) automaticamente a partir de uma tabela de itens e valores cadastrados uma única vez, exporta em Word e PDF, e permite reajustar os valores em % sempre que precisar — sem digitar tudo de novo a cada orçamento.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Gerador%20de%20Or%C3%A7amentos.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🔐</div><h3>Cofre de Senhas</h3></div>
-      <span class="shop-tag">Segurança pessoal</span>
-      <p class="desc">Gerenciador de senhas local, criptografado, com gerador de senhas fortes.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Guarda as senhas de todas as suas contas num banco local (sem depender da internet), protegido por senha mestra e criptografia AES-256-GCM/scrypt, com gerador de senhas aleatórias fortes embutido.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Cofre%20de%20Senhas.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">📥</div><h3>Instalador Remoto</h3></div>
-      <span class="shop-tag">Suporte de TI</span>
-      <p class="desc">Instala programas em várias máquinas da rede ao mesmo tempo.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Interface web para instalar programas em várias máquinas da rede simultaneamente, com catálogo de programas editável, progresso em tempo real por máquina e diagnóstico automático de erros de acesso — economiza horas de instalação manual máquina por máquina.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Instalador%20Remoto.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🗑️</div><h3>Desinstalador Remoto</h3></div>
-      <span class="shop-tag">Suporte de TI</span>
-      <p class="desc">Remove programas de várias máquinas da rede, à distância e com segurança.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Ferramenta web para desinstalar programas remotamente em lote, via PowerShell Remoting/WinRM — sem depender de ferramentas que costumam disparar alarme falso em antivírus corporativos.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Desinstalador%20Remoto.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🖥️</div><h3>RMM Bancada</h3></div>
-      <span class="shop-tag">Suporte de TI</span>
-      <p class="desc">Monitoramento e gestão remota de toda a rede, sem instalar agente.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Painel para monitorar e gerenciar máquinas da rede remotamente (100% sem agente, via WinRM): status em tempo real, execução de comandos, instalação/remoção de programas em lote e localização de máquina por IP.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20RMM%20Bancada%20(monitoramento%20remoto).%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🛡️</div><h3>Scanner de Ameaças</h3></div>
-      <span class="shop-tag">Segurança</span>
-      <p class="desc">Detecta trojans, keyloggers e itens suspeitos de inicialização.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Ferramenta de triagem de segurança que escaneia o computador em busca de trojans, keyloggers e programas suspeitos configurados para iniciar com o Windows, com relatório detalhado do que foi encontrado e integração opcional com o VirusTotal.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Scanner%20de%20Amea%C3%A7as.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">📲</div><h3>Notificador WhatsApp</h3></div>
-      <span class="shop-tag">Automação</span>
-      <p class="desc">Avisa você automaticamente no WhatsApp quando alguém entra em contato pelo seu site.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Bot próprio (sem depender de serviços de terceiros que ficam instáveis) que manda um aviso direto no seu WhatsApp sempre que algo importante acontece no seu site — como um novo contato ou pedido —, com painel web de configuração.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Notificador%20WhatsApp.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card">
-      <div class="svc-top"><div class="svc-icon">🧙</div><h3>Agente de TI com IA</h3></div>
-      <span class="shop-tag">Produtividade</span>
-      <p class="desc">Painel pessoal que organiza sua agenda e prioridades, com assistente de IA.</p>
-      <details class="shop-details">
-        <summary>Ver descrição completa</summary>
-        <p>Painel pessoal para organizar agenda, prioridades e chamados do dia a dia de TI, com assistente de chat via inteligência artificial integrado para tirar dúvidas e ajudar a priorizar — feito sob medida para o ritmo do suporte técnico.</p>
-      </details>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Vi%20a%20loja%20do%20site%20e%20tenho%20interesse%20no%20sistema%3A%20Agente%20de%20TI%20com%20IA.%20Poderia%20me%20passar%20mais%20detalhes%20e%20um%20or%C3%A7amento%3F">🛒 Comprar / solicitar orçamento</a>
-    </div>
-
-    <div class="shop-card shop-custom">
-      <div class="svc-top"><div class="svc-icon">✨</div><h3>Sistema sob medida</h3></div>
-      <span class="shop-tag">Sob encomenda</span>
-      <p class="desc">Não achou o sistema ideal na loja? Eu desenvolvo do zero, do jeito que o seu negócio precisa.</p>
-      <a class="shop-buy" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20N%C3%A3o%20encontrei%20na%20loja%20o%20sistema%20que%20preciso.%20Gostaria%20de%20um%20sistema%20sob%20medida%20%E2%80%94%20poderia%20me%20ajudar%3F">🛒 Pedir sistema sob medida</a>
-    </div>
-
-  </div>
+  <div class="shop-grid" id="loja-grid" data-loading="Carregando a loja..."></div>
 </section>
 
 <section class="services" id="servicos">
@@ -389,52 +260,7 @@ footer .motto{color:var(--gold-2);font-size:13px;letter-spacing:0.4px;margin-top
     <div class="pickup-ic">🚗</div>
     <div><b>Eu busco o seu equipamento e devolvo pronto.</b><span>Combine comigo pelo WhatsApp: passo na sua casa, levo o computador ou notebook para o serviço e entrego de volta funcionando — você não precisa se deslocar.</span></div>
   </div>
-  <div class="services-grid">
-    <div class="svc-card">
-      <span class="svc-badge">Inclui Office</span>
-      <div class="svc-top"><div class="svc-icon">🖥️</div><h3>Formatação com backup</h3></div>
-      <p class="desc">Formatação completa com backup de todos os seus arquivos antes de reinstalar o sistema. Já vem com o Microsoft Office instalado.</p>
-      <div class="svc-price-row"><span class="svc-price">R$ 150,00</span></div>
-      <a class="svc-agendar" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Gostaria%20de%20agendar%3A%20Formata%C3%A7%C3%A3o%20de%20PC%2Fnotebook%20COM%20backup%20dos%20arquivos%20(R%24%20150).%20Poderia%20me%20passar%20os%20hor%C3%A1rios%20dispon%C3%ADveis%3F">📅 Agendar</a>
-    </div>
-    <div class="svc-card">
-      <span class="svc-badge">Inclui Office</span>
-      <div class="svc-top"><div class="svc-icon">🖥️</div><h3>Formatação sem backup</h3></div>
-      <p class="desc">Formatação completa e instalação limpa do sistema, sem backup prévio dos arquivos — indicada para quem já salvou o que precisa. Já vem com o Microsoft Office instalado.</p>
-      <div class="svc-price-row"><span class="svc-price">R$ 100,00</span></div>
-      <a class="svc-agendar" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Gostaria%20de%20agendar%3A%20Formata%C3%A7%C3%A3o%20de%20PC%2Fnotebook%20SEM%20backup%20dos%20arquivos%20(R%24%20100).%20Poderia%20me%20passar%20os%20hor%C3%A1rios%20dispon%C3%ADveis%3F">📅 Agendar</a>
-    </div>
-    <div class="svc-card">
-      <div class="svc-top"><div class="svc-icon">📄</div><h3>Instalação e ativação do Office</h3></div>
-      <p class="desc">Instalação e ativação do Microsoft Office avulsa, sem formatação — ideal para quem só precisa do Office.</p>
-      <div class="svc-price-row"><span class="svc-price">R$ 50,00</span></div>
-      <a class="svc-agendar" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Gostaria%20de%20agendar%3A%20Instala%C3%A7%C3%A3o%20e%20ativa%C3%A7%C3%A3o%20do%20Office%20avulsa.%20Poderia%20me%20passar%20os%20hor%C3%A1rios%20dispon%C3%ADveis%3F">📅 Agendar</a>
-    </div>
-    <div class="svc-card">
-      <div class="svc-top"><div class="svc-icon">🔧</div><h3>Troca e upgrade de componentes</h3></div>
-      <p class="desc">Instalação de componentes diversos: memória, SSD, placas e muito mais, com teste de funcionamento antes da entrega.</p>
-      <div class="svc-price-row"><span class="svc-price">R$ 50,00</span></div>
-      <a class="svc-agendar" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Gostaria%20de%20agendar%3A%20Troca%20e%20upgrade%20de%20componentes.%20Poderia%20me%20passar%20os%20hor%C3%A1rios%20dispon%C3%ADveis%3F">📅 Agendar</a>
-    </div>
-    <div class="svc-card">
-      <div class="svc-top"><div class="svc-icon">🪟</div><h3>Ativação do Windows</h3></div>
-      <p class="desc">Ativação segura e definitiva do seu sistema operacional Windows.</p>
-      <div class="svc-price-row"><span class="svc-price">R$ 50,00</span></div>
-      <a class="svc-agendar" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Gostaria%20de%20agendar%3A%20Ativa%C3%A7%C3%A3o%20do%20Windows.%20Poderia%20me%20passar%20os%20hor%C3%A1rios%20dispon%C3%ADveis%3F">📅 Agendar</a>
-    </div>
-    <div class="svc-card">
-      <div class="svc-top"><div class="svc-icon">🧹</div><h3>Limpeza de PC ou notebook</h3></div>
-      <p class="desc">Limpeza física e interna completa, prevenindo superaquecimento e travamentos.</p>
-      <div class="svc-price-row"><span class="svc-price">R$ 100,00</span></div>
-      <a class="svc-agendar" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Gostaria%20de%20agendar%3A%20Limpeza%20de%20PC%20ou%20notebook.%20Poderia%20me%20passar%20os%20hor%C3%A1rios%20dispon%C3%ADveis%3F">📅 Agendar</a>
-    </div>
-    <div class="svc-card">
-      <div class="svc-top"><div class="svc-icon">✨</div><h3>Orçamento sob medida</h3></div>
-      <p class="desc">Não encontrou o que precisa? Fale com o Mago e receba uma solução personalizada.</p>
-      <div class="svc-price-row"><span class="svc-price">Consulte</span></div>
-      <a class="svc-agendar" href="https://wa.me/5577981020268?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20sob%20medida%20para%20o%20meu%20computador.%20Poderia%20me%20ajudar%3F">📅 Agendar</a>
-    </div>
-  </div>
+  <div class="services-grid" id="servicos-grid" data-loading="Carregando os serviços..."></div>
 </section>
 
 <section class="internet" id="internet">
@@ -494,6 +320,7 @@ footer .motto{color:var(--gold-2);font-size:13px;letter-spacing:0.4px;margin-top
   <p><span data-contador-visitas>—</span> visitas no site</p>
 </footer>
 
+<script src="/conteudo.js"></script>
 <script src="/visitas.js"></script>
 </body>
 </html>
